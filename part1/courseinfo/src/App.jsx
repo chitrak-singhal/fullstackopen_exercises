@@ -26,19 +26,22 @@ function Content({parts}){
     </div>
   )
 }
-// function Total({parts}){
-//   return (
-//     <>
-//     <p>Number of exercises {part1.exercises+part2.exercises+part3.exercises}</p>
-//     </>
-//   )
-// }
+function Total({parts}){
+  let sum = 0;
+  parts.forEach(part=>sum+=part.exercises)
+  return (
+    <>
+    <p><b>total of {sum} exercises</b></p>
+    </>
+  )
+}
 
 function Course({course}){
   return (
     <>
     <Header name={course.name} />
     <Content parts={course.parts} />
+    <Total parts ={course.parts} />
     </>
   )
 }
