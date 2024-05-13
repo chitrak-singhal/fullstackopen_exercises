@@ -27,11 +27,20 @@ function Stats({good, bad, neutral}){
   const all = (good+bad+neutral)
   const avg = (good*1+bad*-1)/all
   const pos = (good)/all
+  if (good==0&&bad==0&&neutral==0)
+    {
+      return(
+        <p> No feedback given</p>
+      )
+    }
   return (
     <>
-        <p> all {all}</p>
-        <p>Average {avg}</p>
-        <p> Positive {pos}</p>
+      <Display text ="good" value={good} />
+      <Display text ="neutral" value={neutral} />
+      <Display text ="bad" value={bad} />
+      <Display text ="all" value={all} />
+      <Display text ="average" value={avg} />
+      <Display text ="positive" value={pos} />
     </>
   )
 }
@@ -49,10 +58,6 @@ function App() {
       <Button onClick={()=>increment(bad,setBad)} text ="bad" />
 
       <Heading text="Statistics" />
-
-      <Display text ="good" value={good} />
-      <Display text ="neutral" value={neutral} />
-      <Display text ="bad" value={bad} />
       
       <Stats good={good} bad ={bad} neutral ={neutral} />
     </div>
