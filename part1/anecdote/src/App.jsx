@@ -14,6 +14,12 @@ function randind(n,func,selected){
   func(upd)
 }
 
+function votebox(n,selected,setVotes,votes){
+  const upd = [...votes]
+  upd[selected]+=1
+  setVotes(upd)
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -25,13 +31,15 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
     'The only way to go fast, is to go well.'
   ]
-   
+  let n = (anecdotes.length)
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(Array(n).fill(0))
 
   return (
     <div>
       {anecdotes[selected]}<br />
-      <Button text="new anecdote" onClick={()=>randind(anecdotes.length,setSelected,selected)} />
+      <Button text="new anecdote" onClick={()=>randind(n,setSelected,selected)} />
+      <Button text="vote" onClick={()=>votebox(n,selected,setVotes,votes)} />
     </div>
   )
 }
