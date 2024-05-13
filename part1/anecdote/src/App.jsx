@@ -14,10 +14,14 @@ function randind(n,func,selected){
   func(upd)
 }
 
-function votebox(n,selected,setVotes,votes){
+function votebox(n,selected,setVotes,votes,maxi, setMaxi){
   const upd = [...votes]
   upd[selected]+=1
   setVotes(upd)
+  if (upd[selected]>upd[maxi])
+  {
+    setMaxi(selected)
+  }
 }
 
 const App = () => {
@@ -33,14 +37,20 @@ const App = () => {
   ]
   let n = (anecdotes.length)
   const [selected, setSelected] = useState(0)
+  const [maxi, setMaxi] = useState(0)
   const [votes, setVotes] = useState(Array(n).fill(0))
 
   return (
     <div>
+      <h1> Anecdote of the day</h1>
       {anecdotes[selected]}<br />
       has {votes[selected]} votes<br />
       <Button text="new anecdote" onClick={()=>randind(n,setSelected,selected)} />
-      <Button text="vote" onClick={()=>votebox(n,selected,setVotes,votes)} />
+      <Button text="vote" onClick={()=>votebox(n,selected,setVotes,votes,maxi,setMaxi)} />
+
+      <h1> Anecdote with most votes</h1>
+    {anecdotes[maxi]}<br />
+    has {votes[maxi]} votes<br />
     </div>
   )
 }
