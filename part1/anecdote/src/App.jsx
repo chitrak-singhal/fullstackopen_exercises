@@ -38,6 +38,7 @@ const App = () => {
   return (
     <div>
       {anecdotes[selected]}<br />
+      has {votes[selected]} votes<br />
       <Button text="new anecdote" onClick={()=>randind(n,setSelected,selected)} />
       <Button text="vote" onClick={()=>votebox(n,selected,setVotes,votes)} />
     </div>
