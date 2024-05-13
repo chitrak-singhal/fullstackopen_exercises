@@ -18,6 +18,11 @@ function Display({text, value}){
   )
 }
 
+function increment(value, func){
+  const upd_value = value +1;
+  func(upd_value);
+}
+
 function App() {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
@@ -26,15 +31,15 @@ function App() {
     <div>
       <Heading text="Give Feedback" />
 
-      <Button onClick={()=>console.log('works')} text ="good" />
-      <Button onClick={()=>console.log('works')} text ="neutral" />
-      <Button onClick={()=>console.log('works')} text ="bad" />
+      <Button onClick={()=>increment(good,setGood)} text ="good" />
+      <Button onClick={()=>increment(neutral,setNeutral)} text ="neutral" />
+      <Button onClick={()=>increment(bad,setBad)} text ="bad" />
 
       <Heading text="Statistics" />
 
       <Display text ="good" value={good} />
-      <Display text ="bad" value={good} />
-      <Display text ="neutral" value={good} />
+      <Display text ="neutral" value={neutral} />
+      <Display text ="bad" value={bad} />
     </div>
   )
 }
