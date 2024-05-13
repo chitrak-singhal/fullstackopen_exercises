@@ -27,8 +27,9 @@ function Content({parts}){
   )
 }
 function Total({parts}){
-  let sum = 0;
-  parts.forEach(part=>sum+=part.exercises)
+  let sum = parts.reduce(
+    (accumulator, current)=>accumulator+current.exercises,0,);
+    //console.log(sum);
   return (
     <>
     <p><b>total of {sum} exercises</b></p>
