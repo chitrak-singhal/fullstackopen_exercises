@@ -15,13 +15,13 @@ const App = () => {
     console.log(persons)
     if (persons.findIndex((e)=>e.name==new_name.name)===-1)
     {
-      console.log(persons.findIndex((e)=>e==new_name));
-      console.log(new_name);
+      // console.log(persons.findIndex((e)=>e==new_name));
+      // console.log(new_name);
       setPersons(persons.concat(new_name))
     }
     else
     {
-      alert('Name already there')
+      alert(`${newName} is already added to the phonebook`)
     }
     setNewName('')
   }
