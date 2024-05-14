@@ -1,15 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '9547123655' }
-  ]) 
+  const [persons, setPersons] = useState([])
+  
+  useEffect(()=>{
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response=>
+        setPersons(response.data)
+      )}
+  ,[])
+
   const [newName, setNewName] = useState('')
   const [newNum, setNewNum] = useState('')
   const [search, setSearch] = useState('')
   const [searchFinal , setSearchFinal] = useState('')
-  console.log(search)
-  console.log(searchFinal,'y')
+  // console.log(search)
+  // console.log(searchFinal,'y')
   const personsToShow = searchFinal==''?persons:persons.filter(person=> person.name.startsWith(searchFinal));
 
   const addName = (event)=>{
@@ -57,7 +65,7 @@ const App = () => {
   const handleSearch=(event)=>{
     event.preventDefault()
     setSearchFinal(search)
-    console.log(searchFinal,'x')
+    //console.log(searchFinal,'x')
   }
 
   return (
