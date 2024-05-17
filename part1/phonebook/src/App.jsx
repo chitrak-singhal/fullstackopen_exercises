@@ -2,6 +2,16 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import phoneService from './services/phonebook'
 
+function Button ({onClick}){
+  return(
+    <div>
+      <button onClick={onClick}>
+        delete
+      </button>
+    </div>
+  )
+}
+
 const App = () => {
   const [persons, setPersons] = useState([])
   
@@ -11,7 +21,7 @@ const App = () => {
       .then(response=>
         setPersons(response.data)
       )}
-  ,[])
+  ,[persons])
 
   const [newName, setNewName] = useState('')
   const [newNum, setNewNum] = useState('')
@@ -75,6 +85,13 @@ const App = () => {
     //console.log(searchFinal,'x')
   }
 
+  const delName=(id)=>{
+    console.log('hi')
+    console.log(id)
+    if (window.confirm("Are you sure you want to delete this number?"))
+      phoneService.del(id)
+  }
+
   return (
     <div>
       <form onSubmit={handleSearch} >
@@ -98,7 +115,12 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      {personsToShow.map(person=><p key={person.name}>{person.name} {person.number}</p>)}
+      {personsToShow.map(person=>
+      <div key={person.name}>
+      <p >{person.name} {person.number}</p>
+      <Button onClick={()=>{delName(person.id)}}/>
+      </div>
+      )}
     </div>
   )
 }
