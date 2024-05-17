@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import phoneService from './services/phonebook'
 
 const App = () => {
   const [persons, setPersons] = useState([])
   
   useEffect(()=>{
-    axios
-      .get('http://localhost:3001/persons')
+    phoneService
+      .getAll()
       .then(response=>
         setPersons(response.data)
       )}
@@ -40,7 +41,7 @@ const App = () => {
           }
         }
         else{
-          axios.post('http://localhost:3001/persons',new_name)
+          phoneService.create(new_name)
           .then(response=>{
             console.log(response)
           })
