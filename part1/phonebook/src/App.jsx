@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import phoneService from './services/phonebook'
+import './App.css'
 
 function Button ({onClick}){
   return(
@@ -8,6 +9,15 @@ function Button ({onClick}){
       <button onClick={onClick}>
         delete
       </button>
+    </div>
+  )
+}
+
+function Noti({msg}){
+  if (!msg) return(<></>)
+  return(
+    <div className='addmsg'>
+      {msg}
     </div>
   )
 }
@@ -27,6 +37,7 @@ const App = () => {
   const [newNum, setNewNum] = useState('')
   const [search, setSearch] = useState('')
   const [searchFinal , setSearchFinal] = useState('')
+  const [Msg, setMsg] = useState()
   // console.log(search)
   // console.log(searchFinal,'y')
   const personsToShow = searchFinal==''?persons:persons.filter(person=> person.name.startsWith(searchFinal));
@@ -55,7 +66,9 @@ const App = () => {
           .then(response=>{
             console.log(response)
           })
+          setMsg(`Added ${newName}`)
           setPersons(persons.concat(new_name))
+          setInterval(()=>setMsg(),5000)
         }
           
     }
@@ -94,6 +107,7 @@ const App = () => {
 
   return (
     <div>
+      <Noti msg={Msg}/>
       <form onSubmit={handleSearch} >
         <div>
           name: <input value ={search} onChange={handleSearchChange}/>
